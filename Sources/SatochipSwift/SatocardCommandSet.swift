@@ -1066,7 +1066,7 @@ public class SatocardCommandSet {
     */
     public func seedkeeperGenerateMasterseed(seedSize: Int, exportRights: SeedkeeperExportRights, label: String) throws -> (APDUResponse, SeedkeeperSecretHeader) {
         
-        let labelBytes: [UInt8] = label.bytes
+        let labelBytes: [UInt8] = Array(label.utf8)
         let data: [UInt8] = [UInt8(labelBytes.count)] + labelBytes
         let capdu: APDUCommand = APDUCommand(cla: CLA.proprietary.rawValue,
                                              ins: SatocardINS.generateMasterseed.rawValue,
@@ -1112,7 +1112,7 @@ public class SatocardCommandSet {
     */
     public func seedkeeperGenerate2faSecret(exportRights: SeedkeeperExportRights, label: String) throws -> (APDUResponse, SeedkeeperSecretHeader) {
         
-        let labelBytes: [UInt8] = label.bytes
+        let labelBytes: [UInt8] = Array(label.utf8)
         let data: [UInt8] = [UInt8(labelBytes.count)] + labelBytes
         let capdu: APDUCommand = APDUCommand(cla: CLA.proprietary.rawValue,
                                              ins: SatocardINS.generate2FaSecret.rawValue,
@@ -1176,8 +1176,8 @@ public class SatocardCommandSet {
             throw SeedkeeperApiError.wrongSecretSize(size: Int(size))
         }
         
-        let labelBytes: [UInt8] = label.bytes
-        let entropyBytes: [UInt8] = entropy.bytes
+        let labelBytes: [UInt8] = Array(label.utf8)
+        let entropyBytes: [UInt8] = entropy
         let saveEntropyByte = saveEntropy ? UInt8(0x01) : UInt8(0x00)
         let data: [UInt8] = [stype.rawValue, subtype, saveEntropyByte] +
                             [UInt8(labelBytes.count)] + labelBytes + [UInt8(entropyBytes.count)] + entropyBytes
