@@ -1,4 +1,4 @@
-import secp256k1
+import libsecp256k1
 import CryptoSwift
 import CommonCrypto
 import Foundation
