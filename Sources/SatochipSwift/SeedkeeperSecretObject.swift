@@ -8,7 +8,7 @@
 import Foundation
 
 public struct SeedkeeperSecretEncryptedParams {
-    //public var sidPubkey: Int = 0 // not really useful
+    public var sidPubkey: Int = 0
     public var iv: [UInt8] = []
     public var hmac: [UInt8] = []
     // TODO: add authentikeys of exporter and importer?
